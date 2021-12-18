@@ -9,11 +9,11 @@ module VerySimpleCPU(clk,rst,data_fromRAM,wrEn,addr_toRAM,data_toRAM);
     output reg[SIZE-1:0] addr_toRAM;
     output reg[31:0] data_toRAM;
 
-    reg [3:0] state_current,state_next ;
-    reg [SIZE-1:0] pc_current,pc_next ;
-    reg [31:0] r1_current,r1_next ;
-    reg [31:0] r2_current,r2_next ;
-
+reg[5:0] state_current,state_next;
+reg[SIZE-1:0] pc_current,pc_next;
+reg[31:0] iw_current,iw_next;
+reg[31:0] r1_current,r1_next ;
+reg[31:0] r2_current,r2_next ;
 
     always@ (posedge clk )begin
 
@@ -46,7 +46,7 @@ module VerySimpleCPU(clk,rst,data_fromRAM,wrEn,addr_toRAM,data_toRAM);
                 pc_next = 0;
                 iw_next = 0;
                 r1_next = 0;
-                r2_next2= 0;
+                r2_next= 0;
                 state_next = 1;
             end
             1:begin
@@ -136,10 +136,9 @@ module VerySimpleCPU(clk,rst,data_fromRAM,wrEn,addr_toRAM,data_toRAM);
                         addr_toRAM = data_fromRAM[27:14]; //R1
                         state_next= 3;
                     end          
-                               
-                                                                                                                 
+                                                                                                                                                
                    default:begin
-                        pc_ next = pc_current ;
+                        pc_next = pc_current ;
                         state_next = 1;
                     end
                 endcase
